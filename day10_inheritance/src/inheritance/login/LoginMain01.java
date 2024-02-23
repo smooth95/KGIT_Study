@@ -1,4 +1,4 @@
-package constructor;
+package inheritance.login;
 
 public class LoginMain01 {
 	public static void main(String[] args) {

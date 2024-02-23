@@ -1,8 +1,8 @@
-package constructor;
+package inheritance.login;
 
 import java.util.Scanner;
 
-public class LoginService01 {
+public class LoginService01 extends TimeClass{
 	private LoginDTO01 ld = new LoginDTO01();
 	private Scanner sc = new Scanner(System.in);
 	public void display() {
@@ -34,6 +34,7 @@ public class LoginService01 {
 			String pw = sc.next();
 			if (id.equals(ld.getId()) && pw.equals(ld.getPwd())) {
 				System.out.println("인증 통과!!!");
+				System.out.println("로그인 시간은 " + super.StartTime() + "입니다.");
 			} else if (id.equals(ld.getId()) && !pw.equals(ld.getPwd())) {
 				System.out.println("비밀번호가 틀렸습니다.");
 			} else if (!id.equals(ld.getId()) && pw.equals(ld.getPwd())){
@@ -62,6 +63,8 @@ public class LoginService01 {
 			System.out.println("회원정보를 삭제합니다.");
 			ld.setId(null);
 			ld.setPwd(null);
+			System.out.println("탈퇴 시간은 " + super.EndTime() + "입니다.");
+			System.out.println("로그인 시간은 " + super.UseTime() + "입니다.");
 		}
 	}
 }
