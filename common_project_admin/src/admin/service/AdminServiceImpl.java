@@ -61,7 +61,7 @@ public class AdminServiceImpl implements AdminService{
 	TableColumn<MemberData, String> memberName;
 	TableColumn<MemberData, String> memberBirth;
 	TableColumn<MemberData, String> memberTel;
-	TableColumn<MemberData, Integer> memberGender;
+	TableColumn<MemberData, String> memberGender;
 	TableColumn<MemberData, String> memberAdd;
 	TextField memberSearchTF;
 	
@@ -137,7 +137,6 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	public void productShow(TableView productInfo, TableColumn productNumber, TableColumn productName, TableColumn productPrice, TableColumn productCateColumn, String str) {
-		System.out.println("show 실행");
 		dataList.removeAll(dataList);
 		AdminDAO dao = new AdminDAO();
 		ArrayList<AdminDTO> adminDTO = dao.getProduct(str);
@@ -145,7 +144,6 @@ public class AdminServiceImpl implements AdminService{
 			AdminDTO dto = adminDTO.get(i);
 			dataList.add(new ProductTableData(dto.getProductNumber(), dto.getProductName(), dto.getProductPrice(), dto.getProductImageRoot(), dto.getProductCategory()));			
 		}
-		System.out.println("다음문장 실행");
 		productNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
 		productName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		productPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -203,6 +201,7 @@ public class AdminServiceImpl implements AdminService{
 		System.out.println("변경 버튼 클릭");
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("상품 변경");
+		int num = productInfo.getSelectionModel().getSelectedIndex();
 		System.out.println(changeProductName.getText());
 		if (changeProductName.getText().equals(dto.getProductName())
 				&& changeProductPrice.getText().equals(dto.getProductPrice())
@@ -228,6 +227,7 @@ public class AdminServiceImpl implements AdminService{
 			}
 		}
 		refreshTableView();
+		productInfo.getSelectionModel().select(num);
 	}
 	
 	public void refreshTableView() {
@@ -354,6 +354,7 @@ public class AdminServiceImpl implements AdminService{
 				alert.close();
 			}
 		}
+		
 	}
 	
 	public void memberSearch() {
@@ -362,7 +363,7 @@ public class AdminServiceImpl implements AdminService{
 		if (memberSearchTF.getText() == "") {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("회원 검색");
-			alert.setHeaderText("검색할 회원의 Num을 입력하세요");
+			alert.setHeaderText("검색할 회원의 아이디을 입력하세요");
 			alert.show();
 		} else {
 			String id = memberSearchTF.getText();
@@ -382,16 +383,18 @@ public class AdminServiceImpl implements AdminService{
 					memberAdd.setCellValueFactory(new PropertyValueFactory<>("y_add"));
 					memberInfo.setItems(memberList);
 				} else {
-					System.out.println("해당하는 번호의 사용자가 없음");
-				}							
+					System.out.println("해당하는 아이디의 사용자가 없음");
+				}
 			}
 		}
+		memberSearchTF.clear();
 	}
 	
 	public void memberAddBtn () {
 		AdminDTO dto = new AdminDTO();
 		AdminDAO dao = new AdminDAO();
 		int num;
+		dto.setMemberNum(dao.searchMemNumber());
 		dto.setMemberId(memberIdTF.getText());
 		dto.setMemberPassword(memberPasswordPF.getText());
 		dto.setMemberName(memberNameTF.getText());
@@ -439,6 +442,7 @@ public class AdminServiceImpl implements AdminService{
 		AdminDAO dao = new AdminDAO();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("상품 변경");
+		int num = memberInfo.getSelectionModel().getSelectedIndex();
 		int selected;
 		if (changeMemberMan.isSelected()) {
 			selected = 0;
@@ -481,6 +485,7 @@ public class AdminServiceImpl implements AdminService{
 			}
 			refreshMemberTableView();
 		}
+		memberInfo.getSelectionModel().select(num);
 	}
 	
 	public void refreshMemberTableView() {
@@ -497,7 +502,7 @@ public class AdminServiceImpl implements AdminService{
 		memberName.setCellValueFactory(new PropertyValueFactory<>("y_name"));
 		memberBirth.setCellValueFactory(new PropertyValueFactory<>("y_brith"));
 		memberTel.setCellValueFactory(new PropertyValueFactory<>("y_tel"));
-		memberGender.setCellValueFactory(new PropertyValueFactory<>("y_gender"));
+		memberGender.setCellValueFactory(new PropertyValueFactory<>("y_gender1"));
 		memberAdd.setCellValueFactory(new PropertyValueFactory<>("y_add"));
 		memberInfo.setItems(memberList);
 	}

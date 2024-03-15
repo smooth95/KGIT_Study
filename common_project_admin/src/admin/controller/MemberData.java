@@ -8,7 +8,9 @@ public class MemberData {
 	private String y_brith;
 	private String y_tel;
 	private int y_gender;
-	private String y_man;
+	private String y_gender1;
+
+
 	private String y_add;
 	
 	public MemberData(int y_num, String y_id, String y_pwd, String y_name,String y_brith, String y_tel, int y_gender, String y_add) {
@@ -18,6 +20,11 @@ public class MemberData {
 		this.y_name = y_name;
 		this.y_brith = y_brith;
 		this.y_tel = y_tel;
+		if (y_gender == 0) {
+			y_gender1 = "남자";
+		} else {
+			y_gender1 = "여자";
+		}
 		this.y_gender = y_gender;
 		this.y_add = y_add;
 	}
@@ -84,5 +91,13 @@ public class MemberData {
 
 	public void setY_add(String y_add) {
 		this.y_add = y_add;
+	}
+
+	public String getY_gender1() {
+		return y_gender1;
+	}
+
+	public void setY_gender1(String y_gender1) {
+		this.y_gender1 = y_gender1;
 	}
 }

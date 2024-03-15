@@ -77,6 +77,7 @@ public class MemberAdminController implements Initializable{
 		    	dto.setMemberAdd(newSelection.getY_add());
 		    }
 		});
+		memberInfo.getSelectionModel().selectFirst();
 	}
 	
 	
@@ -100,16 +101,24 @@ public class MemberAdminController implements Initializable{
 	
 	public void memberDelete() {
 		as.memberDelete(dto);
+		int num = memberInfo.getSelectionModel().getSelectedIndex();
+		System.out.println(num);
+		if (num == 0) {
+			dto = null;
+		}
 		refreshMemberTableView();
+		memberInfo.getSelectionModel().selectFirst();
 	}
 	
 	public void memberSearch() {
 		setFxData();
 		as.memberSearch();
+		
 	}
 	public void refreshMemberTableView() {
 		setFxData();
 		as.refreshMemberTableView();
+		memberSearchTF.clear();
 	}
 	
 	public void refreshTableFunc() {

@@ -1,17 +1,14 @@
 package login.controller;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import login.dao.LoginDAO;
-import login.dto.LoginDTO;
+import javafx.scene.image.Image;
 import login.service.LoginService;
 import login.service.LoginServiceImpl;
 
@@ -41,5 +38,12 @@ public class Controller implements Initializable{
 		System.out.println("회원가입 버튼 클릭");
 //		ls.registerFunc();
 		ls.registerFunc(root);
+	}
+	public void setImageView() {
+//		File file = new File(path + "/" + imageArr.get(index));
+//		System.out.println(file.toURI().toString());
+//		
+//		Image img = new Image(file.toURI().toString());
+//		imageView.setImage(img);
 	}
 }

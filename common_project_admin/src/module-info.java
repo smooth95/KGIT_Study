@@ -4,6 +4,7 @@ module common_project_admin {
 	exports admin.dto;
 	exports admin.service;
 	exports admin.dao;
+	exports test;
 
 	requires java.sql;
 	requires javafx.base;

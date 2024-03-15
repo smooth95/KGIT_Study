@@ -47,10 +47,12 @@ public class Controller implements Initializable{
 	
 	private void setImageView(int index) {
 		File file = new File(path + "/" + imageArr.get(index));
+		System.out.println("경로 출력");
 		System.out.println(file.toURI().toString());
 		
 		Image img = new Image(file.toURI().toString());
 		imageView.setImage(img);
+//		file:/D:/0.Guhyeon/eclipse-java/workspace-java/day20_scene03/src/resources/images/body_bg.png
 	}
 	
 	public void indexFunc() {

@@ -213,20 +213,38 @@ public class AdminDAO {
 	}
 	
 	public int memberAdd(AdminDTO dto) {
-		String sql = "insert into memberdatainfo values ((select max(y_num) from memberdatainfo)+1,"
+		String sql = "insert into memberdatainfo values (?,"
 				+ " ?, ?, ?, ?, ?, ?, ?)";
 		int result = 0;
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setString(1, dto.getMemberId());
-			ps.setString(2, dto.getMemberPassword());
-			ps.setString(3, dto.getMemberName());
-			ps.setString(4, dto.getMemberBirth());
-			ps.setString(5, dto.getMemberTel());
-			ps.setInt(6, dto.getMemberGender());
-			ps.setString(7, dto.getMemberAdd());
+			ps.setInt(1, dto.getMemberNum());
+			ps.setString(2, dto.getMemberId());
+			ps.setString(3, dto.getMemberPassword());
+			ps.setString(4, dto.getMemberName());
+			ps.setString(5, dto.getMemberBirth());
+			ps.setString(6, dto.getMemberTel());
+			ps.setInt(7, dto.getMemberGender());
+			ps.setString(8, dto.getMemberAdd());
 			result = ps.executeUpdate();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int searchMemNumber() {
+		String sql = "select max(y_num)+1 from memberdatainfo";
+		int result = 0;
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			rs.next();
+			result = rs.getInt("max(y_num)+1");
+			if (result == 0) {
+				result = 1;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

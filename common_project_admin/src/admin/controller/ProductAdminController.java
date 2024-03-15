@@ -71,6 +71,7 @@ public class ProductAdminController implements Initializable{
 		    	imageView();
 		    }
 		});
+		productInfo.getSelectionModel().selectFirst();
 	}
 	
 	public void logoutFunc() {
@@ -102,7 +103,15 @@ public class ProductAdminController implements Initializable{
 	}
 	public void productDelete() {
 		as.productDelete(dto);
+		int num = productInfo.getSelectionModel().getSelectedIndex();
+		System.out.println(num);
+		if (num == 0) {
+			dto = null;
+			imageView.setImage(null);
+		}
 		refreshFunc();
+		productInfo.getSelectionModel().selectFirst();
+		
 	}
 	public void productAdd() {
 		apc = new AdminProductClass();
